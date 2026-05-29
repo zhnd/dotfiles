@@ -2,6 +2,7 @@
 alias mrt="git push origin \$(git rev-parse --abbrev-ref HEAD):mr/test/\$(git rev-parse --abbrev-ref HEAD)"
 alias mrm="git push origin \$(git rev-parse --abbrev-ref HEAD):mr/master/\$(git rev-parse --abbrev-ref HEAD)"
 alias mrp="git push origin \$(git rev-parse --abbrev-ref HEAD):mr/prerelease/\$(git rev-parse --abbrev-ref HEAD)"
+alias mrrd="git push origin \$(git rev-parse --abbrev-ref HEAD):mr/test-rd/\$(git rev-parse --abbrev-ref HEAD) && git cnb pull create -H mr/test-rd/\$(git rev-parse --abbrev-ref HEAD) -B test-rd"
 
 # Android SDK
 export ANDROID_HOME=$HOME/Library/Android/sdk
