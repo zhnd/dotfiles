@@ -85,7 +85,10 @@ zinit wait lucid for zdharma-continuum/fast-syntax-highlighting
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
