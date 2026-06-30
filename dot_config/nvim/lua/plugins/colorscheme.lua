@@ -1,10 +1,10 @@
 return {
-  { "shaunsingh/nord.nvim" },
+  { "projekt0n/github-nvim-theme", name = "github-theme" },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "nord",
+      colorscheme = "github_dark_dimmed",
     },
   },
 }

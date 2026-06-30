@@ -1,5 +1,28 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+palette = "github_dark_dimmed"
+
+# GitHub Dark Dimmed — palette mirrored from Ghostty's
+# "GitHub Dark Dimmed" theme so the prompt matches the terminal.
+# Overriding the standard color names re-skins the default modules.
+[palettes.github_dark_dimmed]
+black = "#545d68"
+red = "#f47067"
+green = "#57ab5a"
+yellow = "#c69026"
+blue = "#539bf5"
+purple = "#b083f0"
+cyan = "#39c5cf"
+white = "#909dab"
+bright-black = "#636e7b"
+bright-red = "#ff938a"
+bright-green = "#6bc46d"
+bright-yellow = "#daaa3f"
+bright-blue = "#6cb6ff"
+bright-purple = "#dcbdfb"
+bright-cyan = "#56d4dd"
+bright-white = "#cdd9e5"
+
 [battery]
 full_symbol = "• "
 charging_symbol = "⇡ "

@@ -8,21 +8,22 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 --------------------------------------------------------------------------------
--- 配色：Nord
+-- 配色：GitHub Light（WezTerm 内置的 Gogh 配色，色值与 Gogh 源文件一致）
 --------------------------------------------------------------------------------
-config.color_scheme = "nord"
+config.color_scheme = "Github Light (Gogh)"
 
 --------------------------------------------------------------------------------
 -- 字体：MonoLisa 主字体 + Symbols Nerd Font 作为图标回退
 --------------------------------------------------------------------------------
 config.font = wezterm.font_with_fallback({
-  { family = "MonoLisa", weight = "Medium" },
-  -- 终端里的 nerd-font 图标（git 分支、文件类型等）由它兜底
-  "Symbols Nerd Font Mono",
-  "Apple Color Emoji",
+	"Berkeley Mono",
+	{ family = "MonoLisa", weight = "Medium" },
+	-- 终端里的 nerd-font 图标（git 分支、文件类型等）由它兜底
+	"Symbols Nerd Font Mono",
+	"Apple Color Emoji",
 })
-config.font_size = 12.5    -- 编程向的密集字号；想更小可降到 12.0
-config.line_height = 0.95  -- 行距收紧（调它对连字安全）
+config.font_size = 12.5 -- 编程向的密集字号；想更小可降到 12.0
+config.line_height = 0.95 -- 行距收紧（调它对连字安全）
 -- 注意：cell_width 保持 1.0。MonoLisa 带连字，改它会让 => -> != 等连字错位
 config.cell_width = 1.0
 -- MonoLisa 自带连字（=> -> != 等），需要时可以关掉
@@ -37,12 +38,12 @@ config.window_background_opacity = 1.0
 -- 交通灯画进标签栏那一行，省掉独立标题栏高度；不带 SQUARE_CORNERS 即为圆角
 config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
 config.integrated_title_button_style = "MacOsNative" -- 用真正的 macOS 交通灯
-config.integrated_title_button_alignment = "Left"    -- 靠左，macOS 习惯
+config.integrated_title_button_alignment = "Left" -- 靠左，macOS 习惯
 config.window_padding = {
-  left = 12,
-  right = 12,
-  top = 10,
-  bottom = 8,
+	left = 12,
+	right = 12,
+	top = 10,
+	bottom = 8,
 }
 
 -- 启动尺寸：直接用初始行列数，让窗口"一出生就是这个大小"，约为屏幕一半。
@@ -63,96 +64,93 @@ config.tab_max_width = 32
 config.show_new_tab_button_in_tab_bar = false
 config.show_close_tab_button_in_tabs = false
 
--- Nord 调色板
-local nord = {
-  bg = "#2e3440",
-  fg = "#d8dee9",
-  active_bg = "#5e81ac",
-  active_fg = "#eceff4",
-  inactive_bg = "#3b4252",
-  inactive_fg = "#81a1c1",
-  hover_bg = "#434c5e",
+-- GitHub Light 标签栏调色板（与上面的终端配色协调）
+local gh = {
+	bg = "#eaeef2",
+	fg = "#1f2328",
+	active_bg = "#0969da",
+	active_fg = "#ffffff",
+	inactive_bg = "#d0d7de",
+	inactive_fg = "#57606a",
+	hover_bg = "#dde2e8",
 }
 
 -- fancy 标签栏的边框/背景/字体（决定栏高度，让它和交通灯对齐）
 config.window_frame = {
-  font = wezterm.font({ family = "MonoLisa", weight = "Medium" }),
-  font_size = 12.0,
-  active_titlebar_bg = nord.bg,
-  inactive_titlebar_bg = nord.bg,
-  button_bg = nord.bg,
-  button_fg = nord.fg,
+	font = wezterm.font({ family = "MonoLisa", weight = "Medium" }),
+	font_size = 12.0,
+	active_titlebar_bg = gh.bg,
+	inactive_titlebar_bg = gh.bg,
+	button_bg = gh.bg,
+	button_fg = gh.fg,
 }
 
 config.colors = {
-  tab_bar = {
-    background = nord.bg,
-    active_tab = { bg_color = nord.active_bg, fg_color = nord.active_fg, intensity = "Bold" },
-    inactive_tab = { bg_color = nord.inactive_bg, fg_color = nord.inactive_fg },
-    inactive_tab_hover = { bg_color = nord.hover_bg, fg_color = nord.fg, italic = false },
-    new_tab = { bg_color = nord.bg, fg_color = nord.inactive_fg },
-    new_tab_hover = { bg_color = nord.hover_bg, fg_color = nord.fg },
-  },
+	tab_bar = {
+		background = gh.bg,
+		active_tab = { bg_color = gh.active_bg, fg_color = gh.active_fg, intensity = "Bold" },
+		inactive_tab = { bg_color = gh.inactive_bg, fg_color = gh.inactive_fg },
+		inactive_tab_hover = { bg_color = gh.hover_bg, fg_color = gh.fg, italic = false },
+		new_tab = { bg_color = gh.bg, fg_color = gh.inactive_fg },
+		new_tab_hover = { bg_color = gh.hover_bg, fg_color = gh.fg },
+	},
 }
 
 -- 标签文字：序号 + 进程/标题（fancy 标签栏自己画标签形状，这里只给内容）
 wezterm.on("format-tab-title", function(tab, _tabs, _panes, _conf, _hover, max_width)
-  local title = tab.tab_title
-  if not title or #title == 0 then
-    local proc = tab.active_pane.foreground_process_name or ""
-    proc = proc:gsub("(.*[/\\])(.*)", "%2")
-    title = (#proc > 0) and proc or (tab.active_pane.title or "shell")
-  end
+	local title = tab.tab_title
+	if not title or #title == 0 then
+		local proc = tab.active_pane.foreground_process_name or ""
+		proc = proc:gsub("(.*[/\\])(.*)", "%2")
+		title = (#proc > 0) and proc or (tab.active_pane.title or "shell")
+	end
 
-  local label = string.format("  %d  %s  ", tab.tab_index + 1, title)
-  if #label > max_width then
-    label = wezterm.truncate_right(label, max_width - 1) .. "…"
-  end
-  return label
+	local label = string.format("  %d  %s  ", tab.tab_index + 1, title)
+	if #label > max_width then
+		label = wezterm.truncate_right(label, max_width - 1) .. "…"
+	end
+	return label
 end)
 
 -- 右下角状态栏：模式徽标 + 工作目录 + 日期时间
 wezterm.on("update-right-status", function(window, pane)
-  local cells = {}
+	local cells = {}
 
-  -- 模式徽标：resize 模式 / 复制模式等激活时高亮提示
-  local kt = window:active_key_table()
-  if kt then
-    table.insert(cells, { Foreground = { Color = nord.bg } })
-    table.insert(cells, { Background = { Color = "#ebcb8b" } }) -- Nord 黄
-    table.insert(cells, { Attribute = { Intensity = "Bold" } })
-    table.insert(cells, { Text = string.format("  %s  ", kt:upper()) })
-    table.insert(cells, "ResetAttributes")
-    table.insert(cells, { Text = "  " })
-  end
+	-- 模式徽标：resize 模式 / 复制模式等激活时高亮提示
+	local kt = window:active_key_table()
+	if kt then
+		table.insert(cells, { Foreground = { Color = "#ffffff" } })
+		table.insert(cells, { Background = { Color = "#9a6700" } }) -- GitHub 琥珀黄
+		table.insert(cells, { Attribute = { Intensity = "Bold" } })
+		table.insert(cells, { Text = string.format("  %s  ", kt:upper()) })
+		table.insert(cells, "ResetAttributes")
+		table.insert(cells, { Text = "  " })
+	end
 
-  local uri = pane:get_current_working_dir()
-  if uri then
-    local path = uri.file_path or tostring(uri)
-    local cwd = path:gsub(os.getenv("HOME") or "", "~")
-    table.insert(cells, { Foreground = { Color = nord.inactive_fg } })
-    table.insert(cells, { Text = "  " .. cwd .. "   " })
-  end
+	local uri = pane:get_current_working_dir()
+	if uri then
+		local path = uri.file_path or tostring(uri)
+		local cwd = path:gsub(os.getenv("HOME") or "", "~")
+		table.insert(cells, { Foreground = { Color = gh.inactive_fg } })
+		table.insert(cells, { Text = "  " .. cwd .. "   " })
+	end
 
-  table.insert(cells, { Foreground = { Color = nord.active_fg } })
-  table.insert(cells, { Text = wezterm.strftime("  %H:%M  %m-%d") .. "  " })
-
-  window:set_right_status(wezterm.format(cells))
+	window:set_right_status(wezterm.format(cells))
 end)
 
 --------------------------------------------------------------------------------
 -- 性能：GPU 渲染（Apple Silicon 走 Metal）
 --------------------------------------------------------------------------------
-config.front_end = "WebGpu"                       -- M4 上用 Metal，比 OpenGL 更快更省电
+config.front_end = "WebGpu" -- M4 上用 Metal，比 OpenGL 更快更省电
 config.webgpu_power_preference = "HighPerformance" -- 偏好高性能 GPU
-config.max_fps = 60                                -- 匹配屏幕刷新率（你的屏 60Hz），更高是浪费
+config.max_fps = 60 -- 匹配屏幕刷新率（你的屏 60Hz），更高是浪费
 -- 缓动帧率压到最低：光标闪烁/淡入淡出不再生成中间帧，终端闲置时几乎不重绘 GPU
 config.animation_fps = 1
 
 --------------------------------------------------------------------------------
 -- 其它行为
 --------------------------------------------------------------------------------
-config.scrollback_lines = 100000   -- 更大的回滚缓冲，找历史输出更方便
+config.scrollback_lines = 100000 -- 更大的回滚缓冲，找历史输出更方便
 config.audible_bell = "Disabled"
 config.window_close_confirmation = "NeverPrompt"
 -- 关标签后跳回"上一个激活过的"标签，而非相邻序号，符合直觉

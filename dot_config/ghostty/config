@@ -1,6 +1,13 @@
-theme = Nord
+theme = GitHub Dark Dimmed
 maximize = true
 macos-titlebar-style = tabs
 auto-update-channel = stable
+
+font-family = Berkeley Mono
+font-family = Sarasa Mono SC
+font-family = Symbols Nerd Font
+font-size = 11
+
+font-synthetic-style = false
 
 shell-integration-features = ssh-env
