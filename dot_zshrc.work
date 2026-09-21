@@ -10,3 +10,16 @@ export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cm
 
 # Flutter pub cache
 export PATH="$PATH:$HOME/.pub-cache/bin"
+
+# grok CLI
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+
+# Chrome 调试(chrome-devtools MCP 连接模式,见飞书 wiki O8ePwgVd5irb4bkqWUGcpquHnqh)
+# 使用 Chrome Dev 通道，避免与日常稳定版配置/进程冲突
+export CHROME_BIN="/Applications/Google Chrome Dev.app/Contents/MacOS/Google Chrome Dev"
+alias chrome='open -a "Google Chrome Dev"'
+alias chrome-debug='"$CHROME_BIN" --remote-debugging-port=9222 --user-data-dir="$HOME/.chrome-debug-profile"'
+
+# Antigravity IDE
+export PATH="/Users/void/.antigravity-ide/antigravity-ide/bin:$PATH"
