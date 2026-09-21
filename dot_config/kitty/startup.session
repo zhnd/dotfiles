@@ -1,0 +1,4 @@
+# 启动即最大化（对齐 ghostty maximize = true）
+new_os_window
+os_window_state maximized
+launch --cwd=~
