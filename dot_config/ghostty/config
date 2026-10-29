@@ -3,11 +3,31 @@ maximize = true
 macos-titlebar-style = tabs
 auto-update-channel = stable
 
+# 字体与渲染
+# 中文回退用 Sarasa Fixed（终端变体）而非 Mono：Mono 把 ✓ ♥ — “” 等歧义宽度符号画成全角，终端只给 1 格会重叠
 font-family = Berkeley Mono
-font-family = Sarasa Mono SC
-font-family = Symbols Nerd Font
+font-family = Sarasa Fixed SC
 font-size = 11
 
+font-style-bold = SemiBold
 font-synthetic-style = false
 
-shell-integration-features = ssh-env
+font-thicken = true
+font-thicken-strength = 100
+alpha-blending = linear-corrected
+
+# 窗口边距与状态保存
+window-padding-x = 6
+window-padding-y = 4
+window-padding-balance = true
+window-padding-color = extend
+window-save-state = always
+
+# 分屏与交互体验
+macos-option-as-alt = left
+mouse-hide-while-typing = true
+unfocused-split-opacity = 0.85
+split-preserve-zoom = navigation
+
+# Shell 与 SSH 集成
+shell-integration-features = ssh-env,ssh-terminfo,sudo
