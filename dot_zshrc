@@ -33,7 +33,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LESS='-R -F -X -i'      # 颜色/短内容不分页/不清屏/搜索忽略大小写
 
-# proxy（可切换）
+# proxy（可切换；personal 机器开启了 TUN，默认不启用，work 机器在 .zshrc.work 中开启）
 proxy_on() {
   export ALL_PROXY=socks5://127.0.0.1:10800
   export HTTP_PROXY=http://127.0.0.1:10801
@@ -45,7 +45,6 @@ proxy_off() {
   unset ALL_PROXY HTTP_PROXY HTTPS_PROXY NO_PROXY
   echo "🔴 proxy off"
 }
-proxy_on > /dev/null
 
 export NEXT_PUBLIC_CTC_EDITOR=vscode
 
