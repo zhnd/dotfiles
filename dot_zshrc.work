@@ -1,6 +1,3 @@
-# work-only：默认开启终端代理（personal 机器使用 TUN）
-proxy_on > /dev/null
-
 # work-only：CNB MR 推送快捷方式
 alias mrt="git push origin \$(git rev-parse --abbrev-ref HEAD):mr/test/\$(git rev-parse --abbrev-ref HEAD)"
 alias mrm="git push origin \$(git rev-parse --abbrev-ref HEAD):mr/master/\$(git rev-parse --abbrev-ref HEAD)"
