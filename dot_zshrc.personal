@@ -1,4 +1,1 @@
 # personal-only：个人机器专属配置
-
-# Bitwarden SSH agent（需在 Bitwarden Desktop 中开启 SSH agent）
-export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock

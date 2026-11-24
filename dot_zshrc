@@ -157,6 +157,9 @@ autoload -Uz add-zsh-hook
 add-zsh-hook chpwd osc7-pwd
 osc7-pwd
 
+# Bitwarden SSH agent（需在 Bitwarden Desktop 中开启 SSH agent）
+export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock
+
 # 机器特定配置（work / personal），按 chezmoi profile 部署
 [[ -f ~/.zshrc.work ]] && source ~/.zshrc.work
 [[ -f ~/.zshrc.personal ]] && source ~/.zshrc.personal
